@@ -1,5 +1,46 @@
 {% extends 'base.html' %} {% block content %}
-<h1>{{data.city}}</h1>
-<h1>{{data.country}}</h1>
-<p>{{weather['wind']['speed']}}</p>
+<div class="shadow p-3 mb-5 bg-body rounded">
+  <h1>{{data.city}},</h1>
+  <h1>{{data.country}}</h1>
+  <p>Current Temp: {{weather['main']['temp']}}</p>
+  <p>Current Wind Speed: {{weather['wind']['speed']}}</p>
+
+  <hr />
+
+  Query Weather in date range:
+  <form action="{{ url_for('sensor_info', id=data.id) }}" method="POST">
+    <div class="form-group">
+      <label>Start Date</label>
+      <input
+        type="date"
+        id="start"
+        name="date-start"
+        value="2022-02-01"
+        min="2018-01-01"
+        max="2025-12-31"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <label>End Date</label>
+      <input
+        type="date"
+        id="start"
+        name="date-end"
+        value="2022-01-26"
+        min="2018-01-01"
+        max="2025-12-31"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-secondary">Submit</button>
+  </form>
+  {% if query_data %}
+  <hr />
+  <h3>
+    Average weather between {{query_data.start_date}} -
+    {{query_data['end_date']}}
+  </h3>
+  {% endif %}
+</div>
 {% endblock %}

@@ -1,4 +1,4 @@
-from app import *
+
 
 
 class Sensor(db.Model):
