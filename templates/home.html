@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block content %}{% for message in
+get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">City</th>
+      <th scope="col">Country</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for data in data %}
+    <tr>
+      <th scope="row">{{ loop.index }}</th>
+      <td>
+        <a
+          class="text-decoration-none"
+          href="{{ url_for('sensor_info', id=data.id) }}"
+          >{{data.city}}</a
+        >
+      </td>
+      <td>
+        <a
+          class="text-decoration-none"
+          href="{{ url_for('sensor_info', id=data.id) }}"
+          >{{data.country}}</a
+        >
+      </td>
+      <td>
+        <a
+          type="button"
+          href="{{ url_for('delete', id=data.id) }}"
+          class="btn btn-danger"
+        >
+          Delete
+        </a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p></p>
+<a class="btn btn-primary btn-block" href="{{ url_for('add') }}"
+  >Add New Sensor</a
+>
+{% endblock %}

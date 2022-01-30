@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block content %} {% for message in
+get_flashed_messages() %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+{% endfor %}
+
+<h1>Add Sensor</h1>
+<br />
+<div class="shadow p-3 mb-5 bg-body rounded">
+  <form action="/add" method="POST">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="city"
+        placeholder="City"
+        name="city"
+      />
+    </div>
+    <br />
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="country"
+        placeholder="Country"
+        name="country"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-secondary">Submit</button>
+  </form>
+</div>
+
+{% endblock %}
