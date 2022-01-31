@@ -18,7 +18,7 @@ Prerequisites:
 3. cd to 222 folder and enter 'pip install -r requirements.txt'.
 4. To initialise the database:
 
-- run python in the terminata and enter 'from app import db'.
+- run python in the terminal and enter 'from app import db'.
 - then 'db.create_all()'
 - followed by 'exit()'
 
