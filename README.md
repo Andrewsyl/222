@@ -1,9 +1,20 @@
 # Weather Sensor App
 
+- Full-stack weaher app
 - App allows users to add sensors based on loaction.
-- These sensors then connect to a real-time API that pulls data into the app database.
-- On each query that weather data is collected and stored in the database.
-- The app then allows for querys of data to give average temperateure, humidity windspee etc.
+- Then based on the location, an API call is run in the background to collecting real-life data.
+- This data is then stored in the apps databased. 
+- The database can then be quired for data to give average temperateure, humidity windspee etc.
+
+##  Built With
+
+* Python
+* Flask
+* HTML
+* CSS
+* SQLite
+* CSS
+* Javascript
 
 # Installation
 
