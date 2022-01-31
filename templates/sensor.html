@@ -1,13 +1,15 @@
 {% extends 'base.html' %} {% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>{{data.city}}, {{data.country}}</h1>
+    <p><b>Current Temp: {{weather['main']['temp']}}°</b></p>
+    <p><b>Current Wind Speed: {{weather['wind']['speed']}}km/h</b></p>
+  </div>
+</div>
 <div class="shadow p-3 mb-5 bg-body rounded">
-  <h1>{{data.city}},</h1>
-  <h1>{{data.country}}</h1>
-  <p>Current Temp: {{weather['main']['temp']}}°</p>
-  <p>Current Wind Speed: {{weather['wind']['speed']}}km/h</p>
-
-  <hr />
-
   Query Weather in date range:
+  <br />
+  <br />
   <form action="{{ url_for('sensor_info', id=data.id) }}" method="POST">
     <div class="form-group">
       <label>Start Date</label>
