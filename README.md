@@ -11,10 +11,11 @@ Prerequisites:
 
 - Python
 - Pip
+- Git
 
-1. In a terminal, cd to folder location
-2. enter git clone https://github.com/Andrewsyl/222.git
-3. cd to 222 folder and enter pip install -r requirements.txt
+1. In a terminal, cd to folder location of your choice
+2. Enter git clone https://github.com/Andrewsyl/222.git
+3. cd to 222 folder and enter 'pip install -r requirements.txt'.
 4. To initialise the database:
 
 - run python in the terminata and enter 'from app import db'.
