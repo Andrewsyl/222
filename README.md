@@ -39,9 +39,11 @@ pip install -r requirements.txt
 ```
 from app import db
 ```
+Then
 ```
 db.create_all()
 ```
+Followed by
 ```
 exit()
 ```
