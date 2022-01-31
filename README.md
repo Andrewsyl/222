@@ -29,12 +29,22 @@ Prerequisites:
  ```
   git clone https://github.com/Andrewsyl/222.git
   ```
-4. cd to 222 folder and enter 'pip install -r requirements.txt'.
-5. To initialise the database:
+4. cd to 222 folder and enter 
+```
+pip install -r requirements.txt
+```
+6. To initialise the database:
 
-- run python in the terminal and enter 'from app import db'.
-- then 'db.create_all()'
-- followed by 'exit()'
+- run python in the terminal and enter 
+```
+from app import db
+```
+```
+db.create_all()
+```
+```
+exit()
+```
 
 Once done and still in the 222 folder, run python app.py and open your browser at address http://127.0.0.1:5000
 
