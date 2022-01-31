@@ -60,17 +60,20 @@ def home():
 # Page for adding senors
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    if request.method == 'POST':
-        city = request.form.get('city').capitalize()
-        country = request.form.get('country').capitalize()
-        if not city.isalpha() or not country.isalpha():
-            flash("Loactions must only contain letters.".format(city,country))
-            return redirect('/add')
-        new_sensor = Sensor(city, country)
-
-        db.session.add(new_sensor)
-        db.session.commit()
-        flash("{}, {} Sensor Added.".format(city,country))
+    try:
+        if request.method == 'POST':
+            city = request.form.get('city').capitalize()
+            country = request.form.get('country').capitalize()
+            if not city.isalpha() or not country.isalpha():
+                flash("Loactions must only contain letters.".format(city,country))
+                return redirect('/add')
+            new_sensor = Sensor(city, country)
+            db.session.add(new_sensor)
+            db.session.commit()
+            flash("{}, {} Sensor Added.".format(city,country))
+            return redirect('/')
+    except Exception as e:
+        print(e)
         return redirect('/')
     else:        
         return render_template('add_sensor.html')
@@ -78,40 +81,41 @@ def add():
 
 @app.route('/sensor_info/<int:id>', methods=['GET','POST'])
 def sensor_info(id):
-    query_data = {}
-    all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter()
-    sensor = Sensor.query.get_or_404(id)
-    api_key = "32d282f95e85a07b04c4c1c7c0090202";
-    url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'.format(sensor.city,api_key)
-    response = requests.get(url)
-    data = json.loads(response.text)
-    if request.method == 'POST':
-        start_date = request.form.get('date-start')
-        end_date = request.form.get('date-end')
-        query_data['start_date'] = start_date
-        query_data['end_date'] = end_date
-        all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter(Weather.created_at.between(start_date,end_date))
-
-        hum = 0
-        temp = 0
-        wind_speed = 0
-        count = 0
-
-        for s_data in all_sensor_weather:
-            temp += s_data.temperature
-            hum += s_data.humidity
-            wind_speed += s_data.wind_speed
-            count +=1
-        query_data['temp'] = temp/count
-        query_data['wind_speed'] = wind_speed/count
-        query_data['hum'] = hum/count
-
-        return render_template('sensor.html', data=sensor,weather=data,query_data=query_data)
-    else:
-        new_weather = Weather(temperature=data['main']['temp'],humidity=data['main']['humidity'], wind_speed=data['wind']['speed'], sensor_id=sensor.id)
-        db.session.add(new_weather)
-        db.session.commit()
-        return render_template('sensor.html', data=sensor,weather=data)
+    try:
+        query_data = {}
+        all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter()
+        sensor = Sensor.query.get_or_404(id)
+        api_key = "32d282f95e85a07b04c4c1c7c0090202";
+        url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'.format(sensor.city,api_key)
+        response = requests.get(url)
+        data = json.loads(response.text)
+        if request.method == 'POST':
+            start_date = request.form.get('date-start')
+            end_date = request.form.get('date-end')
+            query_data['start_date'] = start_date
+            query_data['end_date'] = end_date
+            all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter(Weather.created_at.between(start_date,end_date))
+            hum = 0
+            temp = 0
+            wind_speed = 0
+            count = 0
+            for s_data in all_sensor_weather:
+                temp += s_data.temperature
+                hum += s_data.humidity
+                wind_speed += s_data.wind_speed
+                count +=1
+            query_data['temp'] = str(round(temp/count, 2))
+            query_data['wind_speed'] =  str(round(wind_speed/count, 2))
+            query_data['hum'] = (round(hum/count, 2))
+            return render_template('sensor.html', data=sensor,weather=data,query_data=query_data)
+        else:
+            new_weather = Weather(temperature=data['main']['temp'],humidity=data['main']['humidity'], wind_speed=data['wind']['speed'], sensor_id=sensor.id)
+            db.session.add(new_weather)
+            db.session.commit()
+            return render_template('sensor.html', data=sensor,weather=data)
+    except Exception as e:
+        print (e)
+        return redirect('/')
 
 
 @app.route('/delete/<int:id>')

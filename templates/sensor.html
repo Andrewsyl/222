@@ -2,8 +2,8 @@
 <div class="shadow p-3 mb-5 bg-body rounded">
   <h1>{{data.city}},</h1>
   <h1>{{data.country}}</h1>
-  <p>Current Temp: {{weather['main']['temp']}}</p>
-  <p>Current Wind Speed: {{weather['wind']['speed']}}</p>
+  <p>Current Temp: {{weather['main']['temp']}}°</p>
+  <p>Current Wind Speed: {{weather['wind']['speed']}}km/h</p>
 
   <hr />
 
@@ -38,12 +38,12 @@
   {% if query_data %}
   <hr />
   <h3>
-    Average weather between {{query_data.start_date}} -
+    Average weather between {{query_data.start_date}} <bold>:</bold>
     {{query_data['end_date']}}
   </h3>
   <div>
-    <p>Average Temperature - {{query_data.temp}}</p>
-    <p>Average Wind Speed - {{query_data.wind_speed}}</p>
+    <p>Average Temperature - {{query_data.temp}}°</p>
+    <p>Average Wind Speed - {{query_data.wind_speed}}km/h</p>
     <p>Average Humidity - {{query_data.hum}}</p>
     {% endif %}
   </div>
