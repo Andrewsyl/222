@@ -34,3 +34,7 @@ Prerequisites:
 - followed by 'exit()'
 
 Once done and still in the 222 folder, run python app.py and open your browser at address http://127.0.0.1:5000
+
+## Reviewing Code
+
+* Main file is app.py. All routing and major functionality is located here. 
