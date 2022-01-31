@@ -15,7 +15,7 @@
         type="date"
         id="start"
         name="date-start"
-        value="2022-02-01"
+        value="2022-01-01"
         min="2018-01-01"
         max="2025-12-31"
       />
@@ -27,7 +27,7 @@
         type="date"
         id="start"
         name="date-end"
-        value="2022-01-26"
+        value="2022-02-01"
         min="2018-01-01"
         max="2025-12-31"
       />
@@ -41,6 +41,11 @@
     Average weather between {{query_data.start_date}} -
     {{query_data['end_date']}}
   </h3>
-  {% endif %}
+  <div>
+    <p>Average Temperature - {{query_data.temp}}</p>
+    <p>Average Wind Speed - {{query_data.wind_speed}}</p>
+    <p>Average Humidity - {{query_data.hum}}</p>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

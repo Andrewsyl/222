@@ -7,6 +7,7 @@ from importlib_metadata import os
 import requests
 import json
 import datetime
+from flask_migrate import Migrate
 
 
 app = Flask(__name__)
@@ -21,6 +22,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
 
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Weather(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,7 +31,7 @@ class Weather(db.Model):
     humidity = db.Column(db.Integer)
     sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
-
+    
 
 
 class Sensor(db.Model):
@@ -64,7 +66,7 @@ def add():
         if not city.isalpha() or not country.isalpha():
             flash("Loactions must only contain letters.".format(city,country))
             return redirect('/add')
-        new_sensor = Weather(city, country)
+        new_sensor = Sensor(city, country)
 
         db.session.add(new_sensor)
         db.session.commit()
@@ -77,6 +79,7 @@ def add():
 @app.route('/sensor_info/<int:id>', methods=['GET','POST'])
 def sensor_info(id):
     query_data = {}
+    all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter()
     sensor = Sensor.query.get_or_404(id)
     api_key = "32d282f95e85a07b04c4c1c7c0090202";
     url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'.format(sensor.city,api_key)
@@ -87,13 +90,27 @@ def sensor_info(id):
         end_date = request.form.get('date-end')
         query_data['start_date'] = start_date
         query_data['end_date'] = end_date
+        all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter(Weather.created_at.between(start_date,end_date))
 
-        
+        hum = 0
+        temp = 0
+        wind_speed = 0
+        count = 0
+
+        for s_data in all_sensor_weather:
+            temp += s_data.temperature
+            hum += s_data.humidity
+            wind_speed += s_data.wind_speed
+            count +=1
+        query_data['temp'] = temp/count
+        query_data['wind_speed'] = wind_speed/count
+        query_data['hum'] = hum/count
 
         return render_template('sensor.html', data=sensor,weather=data,query_data=query_data)
     else:
-
-        new_weather = Weather(temperature=data['main']['temp'], wind_speed=data['wind']['speed'], sensor_id=sensor)
+        new_weather = Weather(temperature=data['main']['temp'],humidity=data['main']['humidity'], wind_speed=data['wind']['speed'], sensor_id=sensor.id)
+        db.session.add(new_weather)
+        db.session.commit()
         return render_template('sensor.html', data=sensor,weather=data)
 
 
@@ -113,7 +130,7 @@ def delete(id):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return ("Four oh Four!")
+    return render_template('404.html')
 
 
 if __name__ == '__main__':

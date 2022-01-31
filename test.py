@@ -27,5 +27,14 @@ class FlaskTest(unittest.TestCase):
         self.assertTrue(b'Add New Sensor' in response.data)
 
 
+    # def test_sensor_info(self):
+    #     tester = app.test_client(self)
+    #     response = tester.post('/sensor_info/2',data=dict(city='Paris',country='France'),follow_redirects=True)
+    #     statuscode = response.status_code
+    #     self.assertTrue(b'Add New Sensor' in response.data)
+
+    
+
+
 if __name__ == "__main__":
     unittest.main()
