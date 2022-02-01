@@ -66,7 +66,7 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 #### Code
 
 * Separate Models into their own file. As the project grows the app.py file would grow too large to manage.
-* Breakup functions in app.py. Some functions are doing multiple jobs. All should have one job (where possible) and given comments to explain said job.
+* Break-up functions in app.py. Some functions are doing multiple jobs. All should have one job (where possible) and given comments to explain said job.
 * I added an API Key for gathering external weather data. I would remove this and ask the user to fetch their own Key.
 
 #### Testing
