@@ -32,11 +32,13 @@ class Weather(db.Model):
     sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     
+
+
 class Sensor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(20),  nullable=False)
     city = db.Column(db.String(20),  nullable=False)
-    weather = db.relationship('Weather',backref='weather') # One to many relationship with Weather
+    weather = db.relationship('Weather',backref='weather')
 
     def __init__(self, city, country):
         self.city = city
@@ -76,19 +78,17 @@ def add():
     else:        
         return render_template('add_sensor.html')
 
-# Displays weather sensor and quiries API for data
+
 @app.route('/sensor_info/<int:id>', methods=['GET','POST'])
 def sensor_info(id):
     try:
         query_data = {}
         all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter()
         sensor = Sensor.query.get_or_404(id)
-        # Queries Openweathermap API
         api_key = "32d282f95e85a07b04c4c1c7c0090202";
         url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'.format(sensor.city,api_key)
         response = requests.get(url)
         data = json.loads(response.text)
-        # Takes date range and queries Weather model base on range
         if request.method == 'POST':
             start_date = request.form.get('date-start')
             end_date = request.form.get('date-end')
@@ -104,10 +104,14 @@ def sensor_info(id):
                 hum += s_data.humidity
                 wind_speed += s_data.wind_speed
                 count +=1
-            query_data['temp'] = str(round(temp/count, 2))
-            query_data['wind_speed'] =  str(round(wind_speed/count, 2))
-            query_data['hum'] = (round(hum/count, 2))
-            return render_template('sensor.html', data=sensor,weather=data,query_data=query_data)
+            try:
+                query_data['temp'] = str(round(temp/count, 2))
+                query_data['wind_speed'] =  str(round(wind_speed/count, 2))
+                query_data['hum'] = (round(hum/count, 2))
+                return render_template('sensor.html', data=sensor,weather=data,query_data=query_data)
+            except:
+                flash('No weather data in that range. Please try a new range.')
+                return render_template('sensor.html', data=sensor,weather=data)
         else:
             new_weather = Weather(temperature=data['main']['temp'],humidity=data['main']['humidity'], wind_speed=data['wind']['speed'], sensor_id=sensor.id)
             db.session.add(new_weather)
@@ -117,7 +121,7 @@ def sensor_info(id):
         print (e)
         return redirect('/')
 
-# Gets sensor by id and deletes it
+
 @app.route('/delete/<int:id>')
 def delete(id):
     sensor_to_delete = Sensor.query.get_or_404(id)
@@ -131,7 +135,7 @@ def delete(id):
         print(product)
     return render_template('home.html', data=all_products)
 
-# 404 page for any unavailable end points
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
