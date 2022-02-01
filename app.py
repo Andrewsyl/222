@@ -32,13 +32,11 @@ class Weather(db.Model):
     sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))
     created_at = db.Column(db.DateTime, default=datetime.datetime.now())
     
-
-
 class Sensor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.String(20),  nullable=False)
     city = db.Column(db.String(20),  nullable=False)
-    weather = db.relationship('Weather',backref='weather')
+    weather = db.relationship('Weather',backref='weather') # One to many relationship with Weather
 
     def __init__(self, city, country):
         self.city = city
@@ -78,17 +76,19 @@ def add():
     else:        
         return render_template('add_sensor.html')
 
-
+# Displays weather sensor and quiries API for data
 @app.route('/sensor_info/<int:id>', methods=['GET','POST'])
 def sensor_info(id):
     try:
         query_data = {}
         all_sensor_weather = Weather.query.filter_by(sensor_id=id).filter()
         sensor = Sensor.query.get_or_404(id)
+        # Queries Openweathermap API
         api_key = "32d282f95e85a07b04c4c1c7c0090202";
         url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'.format(sensor.city,api_key)
         response = requests.get(url)
         data = json.loads(response.text)
+        # Takes date range and queries Weather model base on range
         if request.method == 'POST':
             start_date = request.form.get('date-start')
             end_date = request.form.get('date-end')
@@ -117,7 +117,7 @@ def sensor_info(id):
         print (e)
         return redirect('/')
 
-
+# Gets sensor by id and deletes it
 @app.route('/delete/<int:id>')
 def delete(id):
     sensor_to_delete = Sensor.query.get_or_404(id)
@@ -131,7 +131,7 @@ def delete(id):
         print(product)
     return render_template('home.html', data=all_products)
 
-
+# 404 page for any unavailable end points
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html')
