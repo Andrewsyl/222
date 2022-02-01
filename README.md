@@ -58,9 +58,8 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 #### Functionality
 
-* Improve the error handling. Currently there are some handling that flags city + country names. I would add a JSON file with a list of cities to choose from.
-* Regarding db Queries 
-* 
+* Improve the error handling. Currently there is some handling that flags the user if city + country names are not letters. Instead I would add a JSON file with a list of cities to choose from.
+* One of the main criteria in the test was querying, I would add a dropdown list allowing the user to select what data they want to reviece e.g temp and rain fall.
 
 #### Code
 
@@ -75,10 +74,8 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 * Functional tests will test the Views for nominal conditions (GET, POST, etc.) for a view function. Or any invalid data is passed to a view function.
 
 * Use the assert function for the Models to test data being saved to database is correct. e.g 
-
-
-(assert user.city == 'Galway'
-assert user.country != 'Ireland')
+assert user.city == 'Galway'
+assert user.country != 'Ireland'
 
 
 * Current test would be imporved by removing redundant code. Some tests are similar and could be combined using a loop.
