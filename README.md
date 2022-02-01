@@ -70,20 +70,18 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 #### Testing
 
-Use assert test for the Models to test data being saved to database is correct. e.g 
+* Structure the testing into Unit Tests and Functional Tests:
+* Unit Tests will test the Models and data being sent to them.
+* Functional tests will test the Views for nominal conditions (GET, POST, etc.) for a view function. Or any invalid data is passed to a view function.
+
+* Use the assert function for the Models to test data being saved to database is correct. e.g 
 
 sensor = Sensor('Galway', 'Ireland')
 assert user.city == 'Galway'
 assert user.country != 'Ireland'
 
 
-
-* 
-    GIVEN - what are the initial conditions for the test?
-    WHEN - what is occurring that needs to be tested?
-    THEN - what is the expected response?
-
 * Remove redundant code. Some tests are similar and could be combined using a loop.
-* Test data being stored in database
+
 
 
