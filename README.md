@@ -13,7 +13,7 @@
 * HTML
 * CSS
 * SQLite
-* CSS
+* Bootstrap 
 * Javascript
 
 # Installation
