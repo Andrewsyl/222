@@ -76,12 +76,12 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 * Use the assert function for the Models to test data being saved to database is correct. e.g 
 
-sensor = Sensor('Galway', 'Ireland')
-assert user.city == 'Galway'
-assert user.country != 'Ireland'
+
+(assert user.city == 'Galway'
+assert user.country != 'Ireland')
 
 
-* Remove redundant code. Some tests are similar and could be combined using a loop.
+* Current test would be imporved by removing redundant code. Some tests are similar and could be combined using a loop.
 
 
 
