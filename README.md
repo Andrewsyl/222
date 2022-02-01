@@ -58,11 +58,13 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 #### Functionality
 
-*
+* Improve the error handling. Currently there are some handling that flags city + country names. I would add a JSON file with a list of cities to choose from.
 
 #### Code 
 
-*
+* Seperate Models into their own file. As the project grows the app.py file would grow too large to manage. 
+* Breakup functions in app.py. Some functions are doing multiple jobs. All should have one job (where possible) and given comments to explain said job. 
+* I added an API Key for gathering external weather data. I would remove this and ask the user to fetch their owne Key 
 
 #### Testing
 
