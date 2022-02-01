@@ -62,6 +62,9 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 * When querying from the database, I would add checkboxes allowing the user to select what data they want to receive e.g temp and rain fall.
 * Create a User model that can save user data such as favourites or current location.
 * Add a login page.
+* Add a navbar to improve navigation on the site.
+* User a Javascrip framework such as React for the front-end.
+* Integrate Google Maps to show the location of all sensors. 
 
 #### Code
 
