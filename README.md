@@ -75,11 +75,11 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 #### Testing
 
-* Structure the testing into Unit Tests and Functional Tests:
+* Structure the testing into Unit Tests and Functional Tests.
 * Unit Tests will test the Models and data being sent to them.
 * Functional tests will test the Views for nominal conditions (GET, POST, etc.) for a view function. Or any invalid data is passed to a view function.
 
-* Use the assert function for the Models to test data being saved to the database is correct. e.g
+* Use the assert function for the Models to test data being saved to the database is correct. e.g:
 assert user.city == 'Galway'
 assert user.country != 'Ireland'
 
