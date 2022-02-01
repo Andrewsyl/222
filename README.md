@@ -59,7 +59,8 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 #### Functionality
 
 * Improve the error handling. Currently there are some handling that flags city + country names. I would add a JSON file with a list of cities to choose from.
-* Regarding db Queries
+* Regarding db Queries 
+* 
 
 #### Code
 
@@ -69,6 +70,20 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 #### Testing
 
-*
+Use assert test for the Models to test data being saved to database is correct. e.g 
+
+sensor = Sensor('Galway', 'Ireland')
+assert user.city == 'Galway'
+assert user.country != 'Ireland'
+
+
+
+* 
+    GIVEN - what are the initial conditions for the test?
+    WHEN - what is occurring that needs to be tested?
+    THEN - what is the expected response?
+
+* Remove redundant code. Some tests are similar and could be combined using a loop.
+* Test data being stored in database
 
 
