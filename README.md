@@ -53,3 +53,9 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 ## Reviewing Code
 
 * Main file is app.py. All routing and major functionality is located here. 
+
+## Improvements 
+
+#### Functionality
+
+*
