@@ -58,8 +58,10 @@ Once done and still in the 222 folder, run python app.py and open your browser a
 
 #### Functionality
 
-* Improve the error handling. Currently there is some handling that flags the user if city + country names are not letters. Instead I would add a JSON file with a list of cities to choose from.
-* One of the main criteria in the test was querying, I would add a dropdown list allowing the user to select what data they want to reviece e.g temp and rain fall.
+* Improve the error handling. Currently there is some handling that flags the user if city + country names are not letters. Instead I would add a JSON file with a list of cities, which prevests any city/country errors.
+* When querying from the database, I would add checkboxes allowing the user to select what data they want to reviece e.g temp and rain fall.
+* Create a User model that can save user data such as favourites or current location.
+* Add a login page. 
 
 #### Code
 
